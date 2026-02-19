@@ -131,7 +131,6 @@ app.use("/api/marketplace", marketplaceRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", adminRoutes);
 app.use("/api/doctor", doctorRoutes);
-app.use("/api", userRoutes);
 app.use("/api", bookingReadRoutes);
 app.use("/api", petRoutes);
 app.use("/api", payoutRoutes);
@@ -144,6 +143,7 @@ app.use("/api", notificationRoutes);
 app.use("/api/matchmaking", matchmakingRoutes);
 app.use("/api/chat", chatRoutes);
 app.use("/api/consultations", consultationRoutes);
+app.use("/api", userRoutes);
 
 app.use((err: any, _req: any, res: any, _next: any) => {
   console.error("Error handler:", err?.message);

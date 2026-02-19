@@ -138,8 +138,18 @@ export class AuthService implements IAuthService {
     if (storedToken !== refreshToken)
       throw new Error("Refresh token is revoked or does not match");
 
-    // Generate new access token
-    const accessToken = generateAccessToken(userId);
+    // Generate new access token with correct role/doctorId claims
+    const user = await this._userRepo.findById(userId);
+    if (!user) throw new Error("Invalid refresh token user.");
+
+    const role = (user as any).role;
+    let doctorId: string | undefined = undefined;
+    if (role === "doctor") {
+      const doctor = await DoctorModel.findOne({ userId: (user as any)._id }).select("_id");
+      doctorId = doctor?._id?.toString();
+    }
+
+    const accessToken = generateAccessToken(userId, role, doctorId);
     return { accessToken };
   };
 login = async (

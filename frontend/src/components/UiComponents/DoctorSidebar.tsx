@@ -39,7 +39,7 @@ export default function DoctorSidebar({
                 {/* Brand */}
                 <div className="px-2 py-3 mb-3">
                     <div className="text-lg font-extrabold">
-                        <span className="text-black">tail</span>
+                        <span className="text-black">Pet</span>
                         <span className="text-orange-500">mate</span>
                     </div>
                     <div className="text-xs text-gray-500 mt-0.5">Doctor portal</div>

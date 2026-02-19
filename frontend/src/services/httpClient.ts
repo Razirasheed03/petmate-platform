@@ -101,7 +101,9 @@ const handleUnauthorized = async (error: AxiosError, original: any) => {
         { withCredentials: true }
       );
       
-      const newAccessToken = refreshResponse?.data?.accessToken;
+      const newAccessToken =
+        (refreshResponse as any)?.data?.data?.accessToken ??
+        (refreshResponse as any)?.data?.accessToken;
       
       if (newAccessToken) {
         localStorage.setItem('auth_token', newAccessToken);
@@ -118,6 +120,10 @@ const handleUnauthorized = async (error: AxiosError, original: any) => {
         return httpClient.request(original);
       }
     } catch (refreshError) {
+      // Release any queued requests so they don't hang indefinitely
+      refreshQueue.forEach((resolve) => resolve());
+      refreshQueue = [];
+
       // Only show toast ONCE per token expiry event
       if (!hasShownTokenExpiredToast) {
         hasShownTokenExpiredToast = true;
