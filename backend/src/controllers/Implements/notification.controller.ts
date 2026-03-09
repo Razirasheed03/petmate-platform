@@ -4,7 +4,6 @@ import { NotificationModel } from "../../schema/notification.schema";
 import { Types } from "mongoose";
 
 export const NotificationController = {
-  // GET /api/notifications?role=admin OR doctor OR...
   getMyNotifications: async (req: Request, res: Response) => {
     const userId = (req as any).user?._id;
     const userRole = (req as any).user?.role;

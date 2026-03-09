@@ -72,7 +72,6 @@ export class DoctorController {
         time: new Date().toISOString(),
       });
 
-      // Persistent to all admins (history)
       const admins = await UserModel.find({ role: "admin" }).lean();
       const notifs = admins.map(admin => ({
         userId: admin._id,

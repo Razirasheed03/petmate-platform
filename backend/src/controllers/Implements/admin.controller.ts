@@ -13,7 +13,6 @@ interface AuthenticatedRequest extends Request {
     _id: Types.ObjectId;
     email?: string;
     username?: string;
-    // add other user properties as needed
   };
 }
 export class AdminController {
@@ -35,7 +34,7 @@ export class AdminController {
     try {
       const { userId } = req.params;
       const result = await this._adminService.blockUser(userId);
-      // result is { message: "User blocked successfully" } per service
+
       return ResponseHelper.ok(res, result, HttpResponse.RESOURCE_UPDATED);
     } catch (err) {
       next(err);
@@ -56,7 +55,6 @@ export class AdminController {
     try {
       const { userId } = req.params;
       const result = await this._adminService.deleteUser(userId);
-      // Consistent 200 with message payload; alternatively could return 204
       return ResponseHelper.ok(res, result, HttpResponse.RESOURCE_UPDATED);
     } catch (err) {
       next(err);
